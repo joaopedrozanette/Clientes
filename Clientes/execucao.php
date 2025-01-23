@@ -47,11 +47,32 @@ do {
 
             break;
         case 3:
+            //buscar os objetos no banco de dados
             $clienteDAO = new ClienteDAO();
-            $clienteDAO->listarClientes();
+            $clientes = $clienteDAO->listarClientes();
+
+            //exbibir os dados dos objetos
+            foreach ($clientes as $c) {
+                
+                    printf("%d- %s | %s | %s | %s | %s\n",
+                $c->getId(), $c->getTipo(), $c->getNomeSocial(),
+                $c->getIdentificacao(), $c->getNroDoc(),
+            $c->getEmail());
+                
+            }
 
             break;
         case 4:
+            //buscar cliente pelo ID
+
+            //1- ler o ID
+
+            $id = 0;
+
+            //2- Chamar o metodo que retorna o objeto do cliente do banco de dados
+            $clienteDAO = new ClienteDAO();
+            $cliente = $clienteDAO->buscarPorId();
+
             break;
         case 5:
             break;
