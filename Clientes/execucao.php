@@ -73,6 +73,10 @@ do {
             $clienteDAO = new ClienteDAO();
             $cliente = $clienteDAO->buscarPorId();
 
+            //3- verificar se o cliente retomar é diferente de null
+            //3.1- se for diferente de null, mostrar os dados do cliente
+            //3.2- Se for igual a null, mostrar mensagem que o cliente nao foi encontrado
+
             break;
         case 5:
             break;
