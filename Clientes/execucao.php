@@ -9,6 +9,8 @@ $conexao = new Conexao();
 $con = Conexao::getCon();
 //print_r($con);
 
+$opcao = 0; 
+
 do {
     echo "\n-----------CADASTRO DE CLIENTES-------\n";
     echo "1- Cadastrar Cliente PF\n";
@@ -67,20 +69,58 @@ do {
 
             //1- ler o ID
 
-            $id = 0;
+            $id = readline("Informe o ID do Cliente: ");
 
             //2- Chamar o metodo que retorna o objeto do cliente do banco de dados
             $clienteDAO = new ClienteDAO();
-            $cliente = $clienteDAO->buscarPorId();
+            $cliente = $clienteDAO->buscarPorId($id);
 
             //3- verificar se o cliente retomar é diferente de null
             //3.1- se for diferente de null, mostrar os dados do cliente
             //3.2- Se for igual a null, mostrar mensagem que o cliente nao foi encontrado
 
+            if($cliente != null){
+                echo $cliente; //fazer to_string
+            }
+            else 
+                echo "Cliente não encontrado\n";
+
+
             break;
         case 5:
+            //exclusao pelo id do cliente
+
+            //1-listar clientes
+
+             $clienteDAO = new ClienteDAO();
+            $clientes = $clienteDAO->listarClientes();
+
+            //exbibir os dados dos objetos
+            foreach ($clientes as $c) {
+                
+                   echo $c;
+                
+            }
+
+            //2- solicitar o id
+
+            $id = readline("informe o id do cliente que deseja excluir: ") ;
+
+            $cliente = $clienteDAO->buscarPorId($id);
+            if($cliente){
+            
+            //3- chamar o clienteDAO para remover da base de dados
+
+            $clienteDAO->excluirPorId($id);
+            
+
+            //4- Informar que o cliente foi excluido
+            echo "Cliente excluido com sucesso";}
+            else   
+                    echo "\nCliente não encontrado.\n";
+            
             break;
         case 0:
             break;
     }
-} while ($opcao = 0);
+} while ($opcao != 0);
